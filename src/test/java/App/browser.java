@@ -8,10 +8,6 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
 
@@ -23,8 +19,7 @@ import java.time.Duration;
 import java.util.*;
 
 import static utils.ConfigReader.*;
-import static utils.XLUtils.getNumericCellValue;
-import static utils.XLUtils.getStringCellData;
+
 
 public class browser{
     AppiumDriver driver = null;
@@ -60,10 +55,10 @@ public class browser{
                     .assignCategory("test case")
                     .assignCategory("Windows");
 
-        driver.findElement(By.cssSelector("#nav-search-keywords")).sendKeys(getProduct());
+        findElement(By.cssSelector("#nav-search-keywords")).sendKeys(getProduct());
         test.addScreenCaptureFromPath(takeScreenShot(driver));
 
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        findElement(By.xpath("//input[@type='submit']")).click();
         test.addScreenCaptureFromBase64String(takeScreenShot(driver));
 
         findElement(By.linkText(getProductname())).click();
@@ -90,13 +85,13 @@ public class browser{
         findElement(By.cssSelector("#a-autoid-0-announce")).click();
         test.addScreenCaptureFromBase64String(takeScreenShot(driver));
 
-        driver.findElement(By.xpath("/html[1]/body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[2]/div[4]/div[2]/div[1]/div[1]/div[1]/span[1]/div[1]/label[1]/span[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]/input[1]")).sendKeys(getCvv());
+        findElement(By.xpath("/html[1]/body[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[2]/div[4]/div[2]/div[1]/div[1]/div[1]/span[1]/div[1]/label[1]/span[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]/input[1]")).sendKeys(getCvv());
         test.addScreenCaptureFromPath(takeScreenShot(driver));
 
-        driver.findElement(By.name("ppw-widgetEvent:SetPaymentPlanSelectContinueEvent")).click();
+        findElement(By.name("ppw-widgetEvent:SetPaymentPlanSelectContinueEvent")).click();
         test.addScreenCaptureFromPath(takeScreenShot(driver));
 
-        driver.findElement(By.name("placeYourOrder1")).click();
+        findElement(By.name("placeYourOrder1")).click();
         test.addScreenCaptureFromPath(takeScreenShot(driver));
 
 
@@ -166,20 +161,6 @@ public class browser{
  //       return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
  //   }
 
- /*   public static String man() throws IOException {
-        String data = "C:\\Users\\lenovo\\IdeaProjects\\Mobile\\src\\test\\java\\Sheet.xlsx";
-        String sheet = "Sheet1";
-
-        int rowcount = XLUtils.getrowCount(data,sheet);
-        String username;
-        String password;
-        for (int i=1;i<=rowcount;i++)
-        {
-            username = String.valueOf(XLUtils.getNumericCellValue(data,sheet,i,0));
-            password = XLUtils.getStringCellData(data,sheet,i,1);
-        }
-        return man();
-    }  */
     @AfterTest
     public void teardown()
     {

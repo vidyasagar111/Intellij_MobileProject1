@@ -51,7 +51,6 @@ public class Chrome {
     String productname = getStringCellData("Sheet.xlsx","Sheet2",1,2);
     String username = getStringCellData("Sheet.xlsx","Sheet2",1,3);
     String password = getStringCellData("Sheet.xlsx","Sheet2",1,4);
-    String cvv = String.valueOf(getNumericCellValue("Sheet.xlsx","Sheet2",1,5));
     String upiid = getStringCellData("Sheet.xlsx","Sheet2",1,6);
 
 
@@ -72,7 +71,7 @@ public class Chrome {
                 .setNoReset(true).withBrowserName("Chrome");
         driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"),options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.get("http://amazon.in");
+        driver.get(url);
     }
 
     @Test
@@ -84,50 +83,55 @@ public class Chrome {
                 .assignCategory("test case2")
                 .assignCategory("Windows");
         findElement(By.cssSelector("#nav-search-keywords")).sendKeys(product);
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("//input[@type='submit']")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.linkText(productname)).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+       test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.id("buy-now-button")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.cssSelector("#ap_email_login")).sendKeys(username);
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("//body/div[@id='a-page']/div[2]/div[3]/div[1]/div[1]/div[2]/div[1]/div[2]/form[1]/div[3]/div[1]/span[1]/span[1]/input[1]")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.cssSelector("#continue")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("//input[@type='password']")).sendKeys(password);
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.cssSelector("#signInSubmit")).click();
-      //  test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.cssSelector("#a-autoid-0-announce")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("//body/div[@id='a-page']/div[@id='checkoutDisplayPage']/div[@id='a-page']/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[2]/div[5]/div[2]/div[1]/div[1]/div[1]/div[1]/span[1]/div[1]/label[1]/i[1]")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("//input[@type='text']")).sendKeys(upiid);
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         findElement(By.xpath("/html/body/div[5]/div[1]/div[1]/div/div/div/div[2]/div[2]/div/div[2]/form/div/div[2]/div[5]/div[2]/div/div/div/div[2]/div[3]/div/div[2]/div/div/div/div/div[1]/div[2]/span/span/input")).click();
-     //   findElement(By.xpath("//body/div[@id='a-page']/div[@id='checkoutDisplayPage']/div[@id='a-page']/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[2]/div[5]/div[2]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/span[1]/span[1]/input[1]")).click();
-     //   test.addScreenCaptureFromPath(takeScreenShot(driver));
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
 
 
-        findElement(By.xpath("//input[@type='submit']")).click();
 
-        findElement(By.name("placeYourOrder1")).click();
+
+
+        WebElement element = driver.findElement(By.xpath("//body/div[@id='a-page']/div[@id='checkoutDisplayPage']/div[@id='a-page']/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/span[1]/span[1]/input[1]"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();",element);
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("placeYourOrder1"))).click();
+        test.addScreenCaptureFromPath(takeScreenShot(driver));
 
         try {
             FileInputStream fis = new FileInputStream("Sheet.xlsx");
@@ -140,24 +144,13 @@ public class Chrome {
             Cell c3 = row.getCell(2);
             Cell c4 = row.getCell(3);
             Cell c5 = row.getCell(4);
-            Cell c6 = row.getCell(5);
             Cell c7 = row.getCell(6);
 
             url = c1.getStringCellValue();
             product = c2.getStringCellValue();
             productname = c3.getStringCellValue();
             username = c4.getStringCellValue();
-         //   DataFormatter fmt = new DataFormatter();
-         //   username = fmt.formatCellValue(cell);
-         //   String stringFormat = cell.getCellStyle().getDataFormatString();
-         //   CellNumberFormatter fmt = new CellNumberFormatter(stringFormat);
-         //   username = fmt.format(cell.getNumericCellValue());
-          //  switch (cell.getCellType())
-            //   {
-            //       case NUMERIC, FORMULA -> c4.getNumericCellValue();
-            //   }
             password = c5.getStringCellValue();
-            cvv = String.valueOf(c6.getNumericCellValue());
             upiid = c7.getStringCellValue();
         }catch (Exception e)
         {
