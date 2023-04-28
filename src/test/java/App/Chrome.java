@@ -129,6 +129,7 @@ public class Chrome {
         WebElement element = driver.findElement(By.xpath("//body/div[@id='a-page']/div[@id='checkoutDisplayPage']/div[@id='a-page']/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/span[1]/span[1]/input[1]"));
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();",element);
         test.addScreenCaptureFromPath(takeScreenShot(driver));
+
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("placeYourOrder1"))).click();
         test.addScreenCaptureFromPath(takeScreenShot(driver));
